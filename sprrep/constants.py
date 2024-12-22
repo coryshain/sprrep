@@ -3,7 +3,8 @@ import re
 HEADER = re.compile('.*# (\d+)\. (.+)\.')
 NAME_MAP = {
     'Prolific_ID': 'subject',
-    'Order number of item': 'itemunique',
+    'Results reception time': 'acquisition_date',
+    'Order number of item': 'item_unique',
     'Value': 'word',
     'Parameter': 'sentpos',
     'EventTime': 'time',

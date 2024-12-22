@@ -35,10 +35,13 @@ df['question_RT'] = df.question_response_timestamp - df.item_end
 df.time /= 1000
 df.question_response_timestamp /= 1000
 
+# Add acquisition date (useful for catching repeat participants)
+df.acquisition_date = pd.to_datetime(df.acquisition_date, unit='ms')
+
 # Add repetition index
-df_by_item = df[[PARTICIPANT_COL, ITEM_COL, 'itemunique']].drop_duplicates([PARTICIPANT_COL, 'itemunique'])
+df_by_item = df[[PARTICIPANT_COL, ITEM_COL, 'item_unique']].drop_duplicates([PARTICIPANT_COL, 'item_unique'])
 df_by_item['repetition_index'] = df_by_item.groupby([PARTICIPANT_COL, ITEM_COL]).cumcount() + 1
-df = pd.merge(df, df_by_item, on=[PARTICIPANT_COL, ITEM_COL, 'itemunique'], how='left')
+df = pd.merge(df, df_by_item, on=[PARTICIPANT_COL, ITEM_COL, 'item_unique'], how='left')
 
 # Merge in modelblocks predictors
 df['sentid'] = df[ITEM_COL] - 1
