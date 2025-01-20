@@ -36,7 +36,8 @@ df.time /= 1000
 df.question_response_timestamp /= 1000
 
 # Add acquisition date (useful for catching repeat participants)
-df.acquisition_date = pd.to_datetime(df.acquisition_date, unit='ms')
+df.acquisition_date = pd.to_datetime(df.acquisition_date, unit='s')
+df['comp_q_bugfix'] = df.acquisition_date > '2024-12-23 21:52:16' # Date of last participant before bugfix
 
 # Add repetition index
 df_by_item = df[[PARTICIPANT_COL, ITEM_COL, 'item_unique']].drop_duplicates([PARTICIPANT_COL, 'item_unique'])
@@ -52,6 +53,7 @@ with pkg_resources.as_file(pkg_resources.files(resources).joinpath(
 df = pd.merge(df, df_items, on=['sentid', 'sentpos'], how='left')
 
 df = df[COLS]
+df = df[df.RT > 0]  # Remove words with no RT
 
 if not os.path.exists('data'):
     os.makedirs('data')

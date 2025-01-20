@@ -2,6 +2,7 @@ import os
 import csv
 import joblib
 from tempfile import TemporaryDirectory
+import numpy as np
 import pandas as pd
 
 from sprrep.constants import *

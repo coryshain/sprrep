@@ -30,5 +30,5 @@ MB_COLS = [
     'fwprob5surp'
 ]
 COLS = list(NAME_MAP.values()) + [
-    'repetition_index', 'correct', 'question_response_timestamp', 'question_RT'
+    'repetition_index', 'correct', 'question_response_timestamp', 'question_RT', 'comp_q_bugfix'
 ] + MB_COLS
